@@ -42,9 +42,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
 ol{padding-left:22px;margin:0}li{margin:4px 0}
 ul.f{padding-left:20px;margin:0;font-size:.95rem}
 footer{max-width:560px;margin:0 auto;padding:6px 16px 32px;text-align:center;color:var(--mute);font-size:.85rem}
-.sc{width:100%;height:auto;border-radius:12px;
+.sc{width:100%;height:auto;border-radius:12px;display:block;margin:8px 0}.tw{animation:tw 3s ease-in-out infinite alternate}@keyframes tw{from{opacity:.3}to{opacity:1}}.mood{font-size:1.8rem;line-height:1}.ev{font-size:3rem;margin:0;line-height:1.1}.menu{display:grid;gap:12px;margin:16px 0}.menu button{font-size:1.15rem;text-align:left;padding:14px 16px;display:flex;gap:12px;align-items:center}.menu span{font-size:.85rem;color:var(--mute)}.menu .ic{font-size:1.6rem;color:inherit}.menu .go span{color:inherit}.float{display:inline-block;animation:fl 3s ease-in-out infinite alternate}@keyframes fl{from{transform:translateY(0)}to{transform:translateY(-8px)}}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.st{min-height:2.9em;margin:4px 0}@media (max-height:520px){.stick{position:static}}a{color:var(--acc)}.mb{display:flex;align-items:flex-end;gap:2px;height:64px;margin:4px 0 12px}.mb i{flex:1;border-radius:2px 2px 0 0;min-width:3px}.shake{animation:shk .5s}@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.stick{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;box-shadow:0 4px 14px rgba(0,0,0,.35)}.fly{animation:fly 16s linear infinite}.drift{animation:fly 22s linear infinite}@keyframes fly{from{transform:translateX(0)}to{transform:translateX(460px)}}.shoot{opacity:0;animation:sh 7s 2s infinite}@keyframes sh{0%{opacity:0;transform:translate(0,0)}4%{opacity:1}14%{opacity:0;transform:translate(120px,48px)}100%{opacity:0}}.bob{animation:bob 1.2s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(-4px)}}.blink{animation:bl 2s ease-in-out infinite alternate}@keyframes bl{from{opacity:.4}to{opacity:1}}.mood{display:inline-block;animation:wob 2s ease-in-out infinite}@keyframes wob{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}.ev{animation:bn .9s ease-out;transform-origin:left center}@keyframes bn{0%{transform:scale(.3)}60%{transform:scale(1.2)}100%{transform:scale(1)}}.go:not(:disabled){animation:pulse 1.8s ease-in-out infinite}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,64,28,.5)}50%{box-shadow:0 0 0 9px rgba(232,64,28,0)}}button:active:not(:disabled){transform:scale(.95)}.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}.conf span{position:absolute;top:-30px;font-size:1.6rem;animation:fall 3s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}.astro{opacity:0;animation:walk 1.5s ease-out forwards}@keyframes walk{0%{opacity:0;transform:translate(0,0)}10%{opacity:1}85%{opacity:1;transform:translate(var(--dx),var(--dy))}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}.pop{opacity:0;animation:pop 1.2s 1.2s ease-out forwards}@keyframes pop{0%{opacity:0;transform:translateY(6px)}30%{opacity:1;transform:translateY(-6px)}75%{opacity:1}100%{opacity:0;transform:translateY(-16px)}}.up{animation:upin .6s 1.3s both}@keyframes upin{from{opacity:0}to{opacity:1}}.seg{display:flex;gap:8px}.seg button{flex:1}.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surf)}@media (prefers-reduced-motion:reduce){.fill{transition:none}.tw{animation:none}.float{animation:none}.astro,.pop{display:none}.up{animation:none}.fly,.shoot,.drift,.bob,.blink,.mood,.ev,.go,.shake{animation:none}.conf{display:none}}
 
-  /* HORZONYX premium mission UI (theme tokens + polish) */
+/* HORZONYX premium mission UI (theme tokens + polish) */
 :root{--bg:#071326;--bg2:#0e2140;--surf:rgba(15,29,54,.94);--ink:#edf5ff;--mute:#9eb2d0;--line:rgba(135,171,220,.26);--acc:#ff754d;--accink:#190b08;--o2:#42b9ff;--pw:#ffd166;--sh:#bd8cff;--fd:#55e6a5;color-scheme:dark;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eaf1fb;--bg2:#dce8f8;--surf:rgba(255,255,255,.95);--ink:#12233f;--mute:#5f718e;--line:rgba(74,105,151,.24);--acc:#e84d2b;--accink:#fff;--o2:#1f7fe0;--pw:#b07c00;--sh:#7d3fd0;--fd:#1e9a58;color-scheme:light}}
 :root[data-theme="light"]{--bg:#eaf1fb;--bg2:#dce8f8;--surf:rgba(255,255,255,.95);--ink:#12233f;--mute:#5f718e;--line:rgba(74,105,151,.24);--acc:#e84d2b;--accink:#fff;--o2:#1f7fe0;--pw:#b07c00;--sh:#7d3fd0;--fd:#1e9a58;color-scheme:light}
@@ -88,7 +88,7 @@ footer{padding:12px 20px 34px;line-height:1.7}
 @media(max-width:390px){body{font-size:1rem}main{padding-left:12px;padding-right:12px}.card{border-radius:18px}.alloc{gap:7px}.alloc .t{font-size:.94rem}.alloc .t span{font-size:.78rem}.res i{width:88px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
-  /* ==========================================================================
+/* ==========================================================================
    NASA SPACE APPS · MISSION-CONTROL SKIN
    Visual layer only: no markup, text or script is changed.
    ========================================================================== */
@@ -158,7 +158,7 @@ div[style*="text-align:center"] h1{font-size:clamp(2rem,8vw,3.2rem)}
 .big.float::before{content:"";position:absolute;inset:-14% -8%;z-index:-1;background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 40%,transparent),transparent 72%)}
 .big.float::after{content:"";position:absolute;left:50%;top:50%;width:150%;height:44%;margin:-22% 0 0 -75%;z-index:-1;border-radius:50%;border:1.5px solid transparent;border-top-color:var(--o2);border-bottom-color:color-mix(in srgb,var(--acc) 70%,transparent);transform:rotate(-18deg)}
 
-  /* ---- Mission select ---- */
+/* ---- Mission select ---- */
 .world{padding:12px 12px 14px;border-radius:22px;transition:transform .25s,border-color .25s,box-shadow .25s}
 .world:hover:not(:disabled){transform:translateY(-3px)}
 .world b{font-size:1.22rem;letter-spacing:0}
@@ -195,7 +195,7 @@ div[style*="text-align:center"] h1{font-size:clamp(2rem,8vw,3.2rem)}
 .opt b{font-size:1.08rem;font-weight:600}
 .st{color:var(--mute);font-size:.95rem}
 
-  /* ---- Lists: real sequence gets real numbering ---- */
+/* ---- Lists: real sequence gets real numbering ---- */
 ol{padding:0;list-style:none;counter-reset:step}
 ol li{counter-increment:step;position:relative;padding-left:42px;margin:12px 0;min-height:30px}
 ol li::before{content:counter(step);position:absolute;left:0;top:-1px;display:grid;place-items:center;width:29px;height:29px;border-radius:50%;font:700 .9rem "Chakra Petch",Lexend,sans-serif;color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent);border:1px solid color-mix(in srgb,var(--acc) 55%,transparent)}
@@ -267,8 +267,7 @@ var EV=[
  {w:"ceres",t:"Bright spot trip",x:"You found shiny salty spots on the ground.",f:"NASA’s Dawn spacecraft found bright spots on Ceres made mostly of salty minerals.",c:[{n:"Collect salts for plants",e:{fd:15,pw:-10}},{n:"Skip the trip",e:{}}]},
  {w:"ceres",t:"Dim sunlight",x:"Ceres is far from the Sun, so solar power is low.",f:"Ceres orbits much farther from the Sun than Earth does, so sunlight is weaker there.",c:[{n:"Open extra solar panels",e:{fd:-8}},{n:"Save power",e:{o2:-10,fd:-10}}]}
 ];
-
-  var S=null,app=document.getElementById("app");
+var S=null,app=document.getElementById("app");
 var FL=[["2024-05-08T01:41","X1.0","13663"],["2024-05-08T05:09","X1.0","13664"],["2024-05-08T21:40","X1.0","13664"],["2024-05-09T09:13","X2.2","13664"],["2024-05-09T17:44","X1.1","13664"],["2024-05-10T06:54","X3.9","13664"],["2024-05-11T01:23","X5.8","13664"],["2024-05-11T11:44","X1.5","13664"],["2024-05-12T16:26","X1.0","13664"],["2024-05-14T02:09","X1.7","13664"],["2024-05-14T12:55","X1.2","13664"],["2024-05-08T06:53","M7.1","13664"],["2024-05-08T12:04","M8.6","13664"],["2024-05-08T11:22","M4.1","13663"],["2024-05-08T07:41","M4.5","13663"],["2024-05-08T17:53","M7.9","13664"],["2024-05-08T22:27","M9.8","13664"],["2024-05-09T03:17","M4.0","13664"],["2024-05-09T03:32","M4.5","13664"],["2024-05-10T14:11","M5.9","13664"],["2024-05-11T15:25","M8.8","13664"],["2024-05-12T20:32","M4.8","13664"],["2024-05-13T09:44","M6.6","13664"],["2024-05-13T09:33","M4.9","13664"],["2024-05-14T17:38","M4.4","13682"],["2024-05-14T16:51","X8.7","13664"]];
 var JPM=[17.30,17.44,17.50,17.00,17.34,17.70,17.44,17.53,17.51,17.96,17.65,17.17,18.08,17.08,16.68,16.81,17.95,15.83,17.34,18.54],CUP=[13.58,13.62,13.24,13.80,14.22,14.51,13.23,14.78,14.49,15.44,13.62,13.66,14.27,13.31,13.26,14.04,14.26,13.91,13.31,14.10];
 var DM=[["8 May","X1.0"],["9 May","X2.2"],["10 May","X3.9"],["11 May","X5.8"],["12 May","X1.0"],["13 May","M6.6"],["14 May","X8.7"]];
@@ -338,9 +337,8 @@ function settings(){
  document.getElementById("bk").onclick=home;
  app.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){ST[b.dataset.s]=b.dataset.v;store("hz_set",ST);applySet();settings()}});
  document.getElementById("rs").onclick=function(){if(this.dataset.c){store("hz_save",null);S=null;settings()}else{this.dataset.c=1;this.textContent="Tap again to delete"}}
-                      }
-
-  function dataScr(){
+}
+function dataScr(){
  var X=FL.filter(function(f){return f[1][0]==="X"}).sort(function(a,b){return a[0]<b[0]?-1:1});
  var rows=X.map(function(f){var v=parseFloat(f[1].slice(1));return '<div class="res"><i>'+parseInt(f[0].slice(8,10),10)+' May '+f[0].slice(11,16)+'</i><div class="bar"><div class="fill" style="width:'+Math.round(v/8.7*100)+'%;background:var(--sh)"></div></div><span>'+f[1]+'</span></div>'}).join("");
  var avg=function(a){return(a.reduce(function(x,y){return x+y},0)/a.length).toFixed(1)};

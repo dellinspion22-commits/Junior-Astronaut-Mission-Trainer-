@@ -1,1 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Junior Astronaut Mission Trainer – Team Horzonyx</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap">
+<meta name="theme-color" content="#050b1a">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;line-height:1.5;font-size:1.05rem}
+main{max-width:560px;margin:0 auto;padding:18px 16px 24px}
+h1{font-size:2rem;line-height:1.1;margin:8px 0 10px;font-weight:800}
+h2{font-size:1.2rem;margin:0 0 8px;font-weight:800}
+p{margin:0 0 10px}.mute{color:var(--mute);font-size:.9rem}
+.card{background:var(--surf);border:2px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+.fact{border-color:var(--acc)}
+button{font:inherit;cursor:pointer;border:2px solid var(--ink);background:var(--surf);color:var(--ink);border-radius:12px;padding:10px 14px;min-height:48px}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:not-allowed}
+.go{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600;width:100%;font-size:1.1rem}
+.world{display:block;width:100%;text-align:left;margin:10px 0}
+.world b{display:block;font-size:1.15rem}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meter{margin:8px 0}.meter .row{display:flex;justify-content:space-between}
+.bar{height:16px;border-radius:8px;background:var(--line);overflow:hidden}
+.fill{height:100%;border-radius:8px;transition:width .5s}
+.low .row b{color:var(--acc)}
+.alloc{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.alloc:first-of-type{border-top:0}
+.alloc .t{flex:1}.alloc .t span{display:block;font-size:.85rem;color:var(--mute)}
+.alloc .n{width:28px;text-align:center;font-weight:800;font-size:1.3rem}
+.sq{width:48px;padding:0;font-size:1.4rem}
+.warn{border-left:6px solid var(--acc);padding:8px 12px;margin:8px 0;background:var(--surf);border-radius:8px;font-size:.95rem}
+.opt{display:block;width:100%;text-align:left;margin:8px 0}
+.opt b{display:block}.opt span{font-size:.95rem;color:var(--mute)}
+.res{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:.9rem}.res .bar{flex:1}.res i{width:96px;font-style:normal}
+.big{font-size:2.6rem;margin:0}
+ol{padding-left:22px;margin:0}li{margin:4px 0}
+ul.f{padding-left:20px;margin:0;font-size:.95rem}
+footer{max-width:560px;margin:0 auto;padding:6px 16px 32px;text-align:center;color:var(--mute);font-size:.85rem}
+.sc{width:100%;height:auto;border-radius:12px;
 
+  /* HORZONYX premium mission UI (theme tokens + polish) */
+:root{--bg:#071326;--bg2:#0e2140;--surf:rgba(15,29,54,.94);--ink:#edf5ff;--mute:#9eb2d0;--line:rgba(135,171,220,.26);--acc:#ff754d;--accink:#190b08;--o2:#42b9ff;--pw:#ffd166;--sh:#bd8cff;--fd:#55e6a5;color-scheme:dark;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eaf1fb;--bg2:#dce8f8;--surf:rgba(255,255,255,.95);--ink:#12233f;--mute:#5f718e;--line:rgba(74,105,151,.24);--acc:#e84d2b;--accink:#fff;--o2:#1f7fe0;--pw:#b07c00;--sh:#7d3fd0;--fd:#1e9a58;color-scheme:light}}
+:root[data-theme="light"]{--bg:#eaf1fb;--bg2:#dce8f8;--surf:rgba(255,255,255,.95);--ink:#12233f;--mute:#5f718e;--line:rgba(74,105,151,.24);--acc:#e84d2b;--accink:#fff;--o2:#1f7fe0;--pw:#b07c00;--sh:#7d3fd0;--fd:#1e9a58;color-scheme:light}
+:root[data-theme="dark"]{--bg:#071326;--bg2:#0e2140;--surf:rgba(15,29,54,.94);--ink:#edf5ff;--mute:#9eb2d0;--line:rgba(135,171,220,.26);--acc:#ff754d;--accink:#190b08;--o2:#42b9ff;--pw:#ffd166;--sh:#bd8cff;--fd:#55e6a5;color-scheme:dark}
+html{min-height:100%;background:var(--bg)}
+body{min-height:100vh;background:radial-gradient(ellipse at 12% 0%,rgba(49,111,190,.2),transparent 38rem),linear-gradient(160deg,var(--bg),var(--bg2));background-color:var(--bg)}
+main{max-width:680px;padding:clamp(16px,4vw,28px) clamp(14px,4vw,24px) 34px}
+h1{font-size:clamp(1.85rem,5vw,2.55rem);letter-spacing:-.04em}
+h2{letter-spacing:-.02em}
+.card{position:relative;overflow:hidden;background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:clamp(15px,3.5vw,21px);margin:15px 0;box-shadow:0 12px 30px rgba(0,0,0,.14)}
+.fact{border:1px solid var(--acc)}
+button{border:1px solid var(--line);border-radius:15px;padding:11px 16px;background:var(--surf);box-shadow:0 5px 14px rgba(0,0,0,.1);transition:transform .15s,border-color .15s,box-shadow .15s}
+button:hover:not(:disabled){border-color:var(--acc);box-shadow:0 8px 20px rgba(0,0,0,.16)}
+button:active:not(:disabled){transform:translateY(1px) scale(.985)}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.go{border:1px solid var(--acc);border-radius:16px;background:linear-gradient(115deg,var(--acc),#ffa05a);color:var(--accink);box-shadow:0 10px 24px rgba(232,77,43,.28);font-weight:800}
+.world{padding:12px;border-radius:19px;background:var(--surf)}
+.world .sc{margin:0 0 12px}
+.world b{font-size:1.18rem;letter-spacing:-.02em}
+.world .mute{display:block;margin-top:3px}
+.sc{border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,.2);overflow:hidden}
+.stick{top:calc(env(safe-area-inset-top,0px) + 6px)}
+.menu button{border-radius:18px;min-height:66px}
+.menu .go{border-color:var(--acc)}
+.menu .ic{width:34px;text-align:center}
+.meter{margin:12px 0}
+.bar{height:11px;border-radius:99px;background:var(--line)}
+.fill{border-radius:99px}
+.alloc .t{font-weight:700}
+.alloc .t span{font-weight:400;line-height:1.4}
+.sq{width:46px;min-width:46px;border-radius:13px;font-weight:800}
+.opt{border-radius:16px;padding:14px 15px}
+.warn{border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:11px 14px;background:var(--surf)}
+.seg{padding:4px;background:var(--line);border-radius:15px}
+.seg button{box-shadow:none;border-color:transparent;border-radius:11px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.res i{width:104px}
+.ev{font-size:3.4rem}
+footer{padding:12px 20px 34px;line-height:1.7}
+@media(min-width:700px){.menu{grid-template-columns:1fr 1fr}}
+@media(max-width:390px){body{font-size:1rem}main{padding-left:12px;padding-right:12px}.card{border-radius:18px}.alloc{gap:7px}.alloc .t{font-size:.94rem}.alloc .t span{font-size:.78rem}.res i{width:88px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+  /* ==========================================================================
+   NASA SPACE APPS · MISSION-CONTROL SKIN
+   Visual layer only: no markup, text or script is changed.
+   ========================================================================== */
+:root{--bg:#050b1a;--bg2:#0a1a38;--surf:rgba(13,27,54,.8);--ink:#eef5ff;--mute:#a1b5d4;--line:rgba(130,170,225,.22);--acc:#ff6a3d;--acc2:#ffa05a;--accink:#1a0a05;--o2:#4cc3ff;--pw:#ffd166;--sh:#c19bff;--fd:#5cf0ad;--glow:rgba(76,195,255,.38);--edge:rgba(140,195,255,.42);--n1:rgba(52,112,200,.30);--n2:rgba(130,80,210,.17);--n3:rgba(255,106,61,.15);--star-op:1;--limb-op:1;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#e8f0fb;--bg2:#d3e2f6;--surf:rgba(255,255,255,.88);--ink:#10213d;--mute:#52668a;--line:rgba(60,95,150,.22);--acc:#e0401f;--acc2:#f0732f;--accink:#fff;--o2:#1478d4;--pw:#a87000;--sh:#7a3dcc;--fd:#14924f;--glow:rgba(20,120,212,.22);--edge:rgba(60,110,190,.38);--n1:rgba(80,140,230,.24);--n2:rgba(150,110,230,.13);--n3:rgba(255,140,90,.14);--star-op:0;--limb-op:0;color-scheme:light}}
+:root[data-theme="light"]{--bg:#e8f0fb;--bg2:#d3e2f6;--surf:rgba(255,255,255,.88);--ink:#10213d;--mute:#52668a;--line:rgba(60,95,150,.22);--acc:#e0401f;--acc2:#f0732f;--accink:#fff;--o2:#1478d4;--pw:#a87000;--sh:#7a3dcc;--fd:#14924f;--glow:rgba(20,120,212,.22);--edge:rgba(60,110,190,.38);--n1:rgba(80,140,230,.24);--n2:rgba(150,110,230,.13);--n3:rgba(255,140,90,.14);--star-op:0;--limb-op:0;color-scheme:light}
+:root[data-theme="dark"]{--bg:#050b1a;--bg2:#0a1a38;--surf:rgba(13,27,54,.8);--ink:#eef5ff;--mute:#a1b5d4;--line:rgba(130,170,225,.22);--acc:#ff6a3d;--acc2:#ffa05a;--accink:#1a0a05;--o2:#4cc3ff;--pw:#ffd166;--sh:#c19bff;--fd:#5cf0ad;--glow:rgba(76,195,255,.38);--edge:rgba(140,195,255,.42);--n1:rgba(52,112,200,.30);--n2:rgba(130,80,210,.17);--n3:rgba(255,106,61,.15);--star-op:1;--limb-op:1;color-scheme:dark}
+
+/* ---- Deep-space backdrop: nebula, starfield, planet limb ---- */
+html{background:radial-gradient(62rem 36rem at 8% -6%,var(--n1),transparent 70%),radial-gradient(44rem 30rem at 104% 22%,var(--n2),transparent 70%),radial-gradient(56rem 26rem at 50% 118%,var(--n3),transparent 72%),linear-gradient(172deg,var(--bg),var(--bg2));background-attachment:fixed;background-color:var(--bg);scrollbar-color:var(--line) transparent}
+body{background:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--star-op);
+ background-image:
+  radial-gradient(1px 1px at 23px 41px,#fff,transparent),
+  radial-gradient(1px 1px at 131px 163px,rgba(255,255,255,.85),transparent),
+  radial-gradient(1.4px 1.4px at 201px 77px,#cfe8ff,transparent),
+  radial-gradient(1px 1px at 61px 297px,rgba(255,255,255,.75),transparent),
+  radial-gradient(1.2px 1.2px at 283px 203px,#ffe9d2,transparent),
+  radial-gradient(1px 1px at 347px 331px,rgba(255,255,255,.8),transparent),
+  radial-gradient(1.8px 1.8px at 117px 411px,#fff,transparent),
+  radial-gradient(1.6px 1.6px at 439px 129px,#bfe0ff,transparent);
+ background-size:263px 263px,263px 263px,263px 263px,397px 397px,397px 397px,397px 397px,571px 571px,571px 571px}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--limb-op);
+ background:radial-gradient(ellipse 125% 39.4% at 50% 125%,#07183a 0 70%,rgba(130,214,255,.85) 71%,rgba(76,195,255,.24) 76%,transparent 87%)}
+::selection{background:var(--acc);color:var(--accink)}
+
+/* ---- Type ---- */
+h1,h2,.alloc .n,.meter .row b,.menu button b,.world b,.opt b,.res span,.sq,.big{font-family:"Chakra Petch",Lexend,system-ui,sans-serif}
+h1{font-weight:700;letter-spacing:-.01em;line-height:1.05;text-wrap:balance;text-shadow:0 2px 32px var(--glow)}
+h2{font-weight:700;font-size:1.25rem;letter-spacing:0}
+.mute{line-height:1.55}
+a{color:var(--o2);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--acc)}
+
+/* ---- Mission viewport (every scene illustration) ---- */
+.sc{border:1px solid var(--edge);border-radius:18px;outline:1px solid var(--line);outline-offset:4px;margin:14px 0 18px;box-shadow:0 24px 44px -20px rgba(0,0,0,.8),0 0 44px -12px var(--glow)}
+.sc.stick{margin:8px 0 14px;box-shadow:0 0 0 4px var(--bg),0 14px 26px -8px rgba(0,0,0,.85)}
+.world .sc{outline:0;margin:0 0 12px;box-shadow:0 14px 28px -14px rgba(0,0,0,.75);transition:transform .4s,filter .4s}
+.world:hover .sc{transform:scale(1.02);filter:saturate(1.2) brightness(1.08)}
+
+/* ---- Panels ---- */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 42%),var(--surf);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:20px;box-shadow:0 22px 44px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.07)}
+.fact{border-color:color-mix(in srgb,var(--acc) 50%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 11%,transparent),transparent 48%),var(--surf)}
+.fact::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--acc),var(--acc2) 60%,transparent)}
+.warn{background:linear-gradient(90deg,color-mix(in srgb,var(--acc) 16%,transparent),transparent 70%),var(--surf);border:1px solid color-mix(in srgb,var(--acc) 32%,var(--line));border-left:4px solid var(--acc);border-radius:14px}
+
+/* ---- Buttons ---- */
+button{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,0)),var(--surf);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 20px -12px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.08)}
+button:hover:not(:disabled){transform:translateY(-1px);border-color:var(--acc);box-shadow:0 0 0 1px color-mix(in srgb,var(--acc) 45%,transparent),0 14px 28px -14px color-mix(in srgb,var(--acc) 70%,transparent)}
+.go{background:linear-gradient(112deg,var(--acc),var(--acc2));border-color:color-mix(in srgb,var(--acc2) 65%,#fff);color:var(--accink);letter-spacing:.01em;box-shadow:0 16px 32px -12px color-mix(in srgb,var(--acc) 80%,transparent),inset 0 1px 0 rgba(255,255,255,.4)}
+.go:hover:not(:disabled){filter:brightness(1.08);box-shadow:0 18px 36px -12px color-mix(in srgb,var(--acc) 90%,transparent),inset 0 1px 0 rgba(255,255,255,.45)}
+@keyframes pulse{0%,100%{box-shadow:0 16px 32px -12px color-mix(in srgb,var(--acc) 80%,transparent),0 0 0 0 color-mix(in srgb,var(--acc) 55%,transparent)}50%{box-shadow:0 16px 32px -12px color-mix(in srgb,var(--acc) 80%,transparent),0 0 0 11px color-mix(in srgb,var(--acc) 0%,transparent)}}
+.top button,main>#bk:not(.go){min-height:42px;padding:7px 16px;border-radius:999px;font-size:.95rem}
+main>#bk:not(.go){margin-bottom:6px}
+.seg{background:color-mix(in srgb,var(--line) 70%,transparent);border:1px solid var(--line);border-radius:16px}
+.seg button[aria-pressed="true"]{background:linear-gradient(112deg,var(--acc),var(--acc2));color:var(--accink);box-shadow:0 8px 18px -8px color-mix(in srgb,var(--acc) 80%,transparent)}
+
+/* ---- Home menu ---- */
+.menu{gap:12px;margin:18px 0}
+.menu button{min-height:68px;padding:12px 16px;gap:14px;border-radius:18px;font-size:1.1rem}
+.menu .ic{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:1.45rem}
+.menu .go{grid-column:1/-1;min-height:84px;font-size:1.4rem}
+.menu .go .ic{background:rgba(26,10,5,.2);border-color:rgba(26,10,5,.28)}
+div[style*="text-align:center"] h1{font-size:clamp(2rem,8vw,3.2rem)}
+.big{font-size:2.8rem;filter:drop-shadow(0 6px 22px var(--glow))}
+.big.float{position:relative;z-index:0;padding:.2em .62em}
+.big.float::before{content:"";position:absolute;inset:-14% -8%;z-index:-1;background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 40%,transparent),transparent 72%)}
+.big.float::after{content:"";position:absolute;left:50%;top:50%;width:150%;height:44%;margin:-22% 0 0 -75%;z-index:-1;border-radius:50%;border:1.5px solid transparent;border-top-color:var(--o2);border-bottom-color:color-mix(in srgb,var(--acc) 70%,transparent);transform:rotate(-18deg)}
+
+  /* ---- Mission select ---- */
+.world{padding:12px 12px 14px;border-radius:22px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.world:hover:not(:disabled){transform:translateY(-3px)}
+.world b{font-size:1.22rem;letter-spacing:0}
+
+/* ---- Meters (HUD gauges) ---- */
+.meter{margin:14px 0}
+.meter .row{align-items:baseline;margin-bottom:6px;font-size:.95rem}
+.meter .row b{font-weight:600;font-variant-numeric:tabular-nums}
+.low .bar{box-shadow:inset 0 1px 3px rgba(0,0,0,.55),0 0 0 1px color-mix(in srgb,var(--acc) 55%,transparent),0 0 16px -2px color-mix(in srgb,var(--acc) 40%,transparent)}
+.bar{height:12px;overflow:visible;background:color-mix(in srgb,var(--line) 75%,transparent);box-shadow:inset 0 1px 3px rgba(0,0,0,.55)}
+.fill{background-image:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0) 58%),repeating-linear-gradient(90deg,transparent 0 10px,rgba(5,11,26,.32) 10px 12px)!important;box-shadow:0 0 14px -2px currentColor}
+.fill[style*="var(--o2)"]{color:var(--o2)}
+.fill[style*="var(--pw)"]{color:var(--pw)}
+.fill[style*="var(--sh)"]{color:var(--sh)}
+.fill[style*="var(--fd)"]{color:var(--fd)}
+.fill[style*="var(--acc)"]{color:var(--acc)}
+.top+.bar{height:10px}
+.res{font-size:.92rem}
+.res i{width:100px;flex:none;white-space:nowrap}
+.res span{font-weight:600;font-variant-numeric:tabular-nums;min-width:3.2ch;text-align:right}
+.mb{border-bottom:1px solid var(--line)}
+.mb i{background-image:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0))!important;border-radius:3px 3px 0 0}
+
+/* ---- Worker-hours allocation ---- */
+.alloc{padding:11px 0;gap:10px}
+.alloc .t{font-size:1.02rem;font-weight:600}
+.alloc .n{width:34px;font-size:1.5rem;font-weight:700}
+.sq{width:48px;min-width:48px;height:48px;font-size:1.5rem;line-height:1;border-radius:14px}
+.sq[data-k]{background:linear-gradient(180deg,color-mix(in srgb,var(--acc) 30%,transparent),color-mix(in srgb,var(--acc) 12%,transparent));border-color:color-mix(in srgb,var(--acc) 62%,transparent);color:var(--acc)}
+
+/* ---- Events & choices ---- */
+.ev{filter:drop-shadow(0 0 18px rgba(255,160,90,.5))}
+.opt{padding:15px 16px;margin:10px 0;border-radius:16px}
+.opt b{font-size:1.08rem;font-weight:600}
+.st{color:var(--mute);font-size:.95rem}
+
+  /* ---- Lists: real sequence gets real numbering ---- */
+ol{padding:0;list-style:none;counter-reset:step}
+ol li{counter-increment:step;position:relative;padding-left:42px;margin:12px 0;min-height:30px}
+ol li::before{content:counter(step);position:absolute;left:0;top:-1px;display:grid;place-items:center;width:29px;height:29px;border-radius:50%;font:700 .9rem "Chakra Petch",Lexend,sans-serif;color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent);border:1px solid color-mix(in srgb,var(--acc) 55%,transparent)}
+ul.f li::marker{color:var(--acc)}
+ul.f li{margin:7px 0;line-height:1.55}
+
+/* ---- Footer ---- */
+footer{max-width:680px;border-top:1px solid var(--line);padding:18px 20px 36px;font-size:.82rem}
+
+@media(max-width:390px){.menu .go{font-size:1.25rem}.menu button{padding:10px 12px}.sq{width:44px;min-width:44px}.alloc .n{width:28px}}
+@media(prefers-reduced-motion:reduce){.go,.big,.float{animation:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<footer>Made by Team Horzonyx for the NASA Space Apps Challenge, Virudhunagar.<br>This game is made with the help of AI tools along with real NASA's data.</footer>
+<script>
+var DAYS=8;
+var W={
+ moon:{name:"Moon base",icon:"🌙",d:{o2:8,pw:8,sh:8,fd:7},blurb:"No thick air to block space radiation. Long, freezing nights.",
+  facts:["NASA says the Moon spins once every 27.32 Earth days, the same time it takes to orbit Earth.","NASA lists the Moon’s gravity as 0.17 of Earth’s, so you would weigh much less there.","The Moon is about 384,400 km from Earth on average, says NASA.","NASA lists the Moon’s mean surface temperature as 107 °C by day and −153 °C by night.","NASA found water ice on the Moon. The most is in dark craters at the poles.","NASA lists the Moon’s atmosphere as none, so sunlight and radiation reach the ground directly.","The Moon turns so slowly that daylight and night each last about two weeks.","NASA’s LRO and LCROSS launched together in 2009, starting America’s return to lunar exploration."]},
+ mars:{name:"Mars base",icon:"🔴",d:{o2:8,pw:9,sh:6,fd:9},blurb:"Dust storms cover your solar panels. Plants need extra care.",
+  facts:["A day on Mars is called a sol. NASA says it lasts about 24.6 hours.","NASA says the air on Mars is thin and made mostly of carbon dioxide, nitrogen and argon.","Mars temperatures can reach 20 °C or fall to about −153 °C, says NASA.","NASA says Mars dust storms can cover much of the planet, and the dust can take months to settle.","A year on Mars lasts 687 Earth days, says NASA.","Mars looks red because iron in its rocks and dust has rusted, says NASA.","Mars has the largest canyon in the solar system, Valles Marineris, about 3,870 km long.","Mars has the largest volcano in the solar system, Olympus Mons, more than 40 km tall."]},
+ iss:{name:"Space station",icon:"🛰️",d:{o2:8,pw:6,sh:5,fd:8},blurb:"Orbits Earth every 90 minutes. Everything floats!",
+  facts:["The International Space Station orbits Earth about every 90 minutes.","Astronauts on the station see about 16 sunrises and sunsets every day.","The station travels at about 28,000 kilometres per hour.","Things float on the station because it is always falling around Earth.","The station recycles most of its water, including water from sweat and breath.","Astronauts exercise about two hours a day to keep their bones and muscles strong.","Astronauts have grown lettuce and chili peppers on the station.","NASA RadLab readings inside the ISS in December 2019: about 13 to 15 \u00b5Gy per hour in the Cupola and about 16 to 18.5 in the JPM module."]},
+ europa:{name:"Europa base",icon:"🧊",d:{o2:8,pw:10,sh:10,fd:9},blurb:"An icy moon of Jupiter. Strong radiation and weak sunlight.",
+  facts:["Europa is an icy moon that orbits the giant planet Jupiter.","Scientists think Europa has a giant salty ocean hidden under its ice.","Jupiter’s strong magnetic field fills the space around Europa with powerful radiation.","Sunlight at Jupiter is much weaker than on Earth, so solar panels make less power.","NASA’s Europa Clipper spacecraft is on its way to study Europa.","Europa’s surface is very cold, about −160 °C near the equator.","Europa is a little smaller than Earth’s Moon.","Europa is covered by an icy shell that may be many kilometres thick."]},
+ titan:{name:"Titan base",icon:"🟠",d:{o2:8,pw:10,sh:5,fd:10},blurb:"A moon of Saturn with thick orange air and lakes of liquid methane.",
+  facts:["Titan is the biggest moon of Saturn.","Titan has thick orange air, and it is mostly nitrogen like Earth’s air.","Titan has lakes and rivers, but they hold liquid methane and ethane, not water.","Titan’s surface is extremely cold, about −179 °C.","Titan is the only moon in our solar system with a thick atmosphere.","NASA’s Dragonfly is a flying robot planned to hop between places on Titan.","Titan is wider than the planet Mercury.","Titan’s thick air blocks some radiation, but sunlight there is very dim."]},
+ asteroid:{name:"Asteroid base",icon:"☄️",d:{o2:8,pw:8,sh:7,fd:8},blurb:"A tiny space rock with almost no gravity. Hold on tight!",
+  facts:["Asteroids are leftover pieces from when our solar system was young.","Asteroids have very weak gravity, so things can float away easily.","Asteroid Bennu is shaped a bit like a spinning top.","A day on Bennu is only about 4 hours long.","NASA’s OSIRIS-REx spacecraft brought a sample from Bennu to Earth in 2023.","Bennu is about 500 metres wide.","NASA’s Psyche spacecraft is travelling to an asteroid that is rich in metal.","Scientists study asteroid samples to learn how planets formed."]},
+ venus:{name:"Venus cloud base",icon:"☁️",d:{o2:7,pw:7,sh:4,fd:9},blurb:"A floating city in Venus’s clouds. The ground below is far too hot.",
+  facts:["Venus is the hottest planet, with a surface about 465 °C.","Venus’s air is mostly carbon dioxide, so people cannot breathe it.","A day on Venus is longer than its year!","Venus’s clouds are made of sulfuric acid.","Venus spins backward compared with most planets.","High in Venus’s clouds, the air pressure and temperature are much closer to Earth’s.","NASA scientists have studied ideas for floating cities in Venus’s clouds.","Venus is about the same size as Earth."]},
+ ceres:{name:"Ceres base",icon:"✨",d:{o2:8,pw:10,sh:7,fd:9},blurb:"A dwarf planet in the asteroid belt with bright salty spots.",
+  facts:["Ceres is the biggest object in the asteroid belt.","Ceres is a dwarf planet.","Ceres has bright spots made mostly of salty minerals.","Gravity on Ceres is only about 3% of Earth’s.","NASA’s Dawn spacecraft orbited Ceres from 2015 to 2018.","A day on Ceres lasts about 9 hours.","Dawn was the first spacecraft to orbit two different worlds beyond Earth.","Scientists think Ceres has a lot of water ice inside."]}
+};
+var SYS=[
+ {k:"o2",n:"Air",i:"💨",tip:"Clean air to breathe"},
+ {k:"pw",n:"Power",i:"⚡",tip:"Solar panels and batteries"},
+ {k:"sh",n:"Shield",i:"🛡️",tip:"Blocks space radiation"},
+ {k:"fd",n:"Food",i:"🌱",tip:"Plants in the greenhouse"}
+];
+var COL={o2:"var(--o2)",pw:"var(--pw)",sh:"var(--sh)",fd:"var(--fd)"};
+var EV=[
+ {w:"both",t:"Solar flare!",x:"The Sun sent out a burst of radiation.",f:"Space has no thick air to protect us like Earth does. NASA crews use shelters during solar storms.",c:[
+  {n:"Hide in the shield room",e:{pw:-5}},{n:"Keep working outside",e:{sh:-30}}]},
+ {w:"both",t:"Tiny space rock hit the wall",x:"A small leak is letting air out.",f:"Tiny space rocks called micrometeoroids hit spacecraft all the time, so crews check for leaks.",c:[
+  {n:"Patch it now",e:{o2:-5,pw:-5}},{n:"Fix it later",e:{o2:-25}}]},
+ {w:"both",t:"Plants are getting sick",x:"Some greenhouse plants are turning brown.",f:"Growing food in space takes light, water, power and care.",c:[
+  {n:"Fix the greenhouse",e:{fd:-5,pw:-10}},{n:"Eat stored food",e:{fd:-25}}]},
+ {w:"both",t:"A supply capsule landed!",x:"Pick one box to open.",f:"Real missions bring extra supplies because resupply trips take a long time.",c:[
+  {n:"Air tanks",e:{o2:20}},{n:"Batteries",e:{pw:20}},{n:"Seeds",e:{fd:20}}]},
+ {w:"mars",t:"Dust storm!",x:"Red dust is covering the solar panels.",f:"NASA says Mars dust storms can cover much of the planet, and it can take months for the dust to settle.",c:[
+  {n:"Clean the panels",e:{fd:-10}},{n:"Wait it out",e:{pw:-28}}]},
+ {w:"mars",t:"Oxygen machine test",x:"Your MOXIE-style machine can make oxygen from Mars air.",f:"NASA’s MOXIE made oxygen from Mars air in 2021. It uses a lot of electricity.",c:[
+  {n:"Turn it on",e:{pw:-15,o2:25}},{n:"Skip it today",e:{}}]},
+ {w:"moon",t:"Freezing cold!",x:"It is getting very cold outside.",f:"NASA lists the Moon’s mean surface temperature as −153 °C at night, so equipment needs heat.",c:[
+  {n:"Turn on heaters",e:{pw:-20}},{n:"Save power",e:{fd:-15,o2:-8}}]},
+ {w:"iss",t:"Space junk warning!",x:"Old broken satellite pieces are zooming close.",f:"Bits of old satellites orbit Earth very fast. The station sometimes moves out of their way.",c:[{n:"Move the station",e:{pw:-12}},{n:"Take the risk",e:{o2:-22}}]},
+ {w:"iss",t:"Water recycler problem",x:"The machine that cleans water has stopped.",f:"The station recycles sweat and breath moisture into clean drinking water.",c:[{n:"Fix the recycler",e:{pw:-8,fd:-5}},{n:"Use backup water",e:{o2:-12,fd:-12}}]},
+ {w:"europa",t:"Jupiter radiation storm",x:"Jupiter’s radiation is extra strong today.",f:"Radiation near Jupiter is so strong that spacecraft need special protection.",c:[{n:"Shut down outside work",e:{pw:-10}},{n:"Keep drilling",e:{sh:-30}}]},
+ {w:"europa",t:"Dim sunlight",x:"Jupiter is very far from the Sun, so solar power is low.",f:"Sunlight at Jupiter is much weaker than at Earth, so spacecraft there need big solar panels.",c:[{n:"Open more solar panels",e:{fd:-8}},{n:"Use less power",e:{o2:-10,fd:-10}}]},
+ {w:"titan",t:"Methane rain",x:"Clouds on Titan are dropping liquid methane.",f:"Titan has clouds and rain, but the rain is methane, not water.",c:[{n:"Cover the equipment",e:{pw:-8}},{n:"Ignore it",e:{pw:-20}}]},
+ {w:"titan",t:"Deep freeze",x:"It is colder than usual outside.",f:"Titan’s surface is about −179 °C, far colder than any place on Earth.",c:[{n:"Heat the greenhouse",e:{pw:-18}},{n:"Save power",e:{fd:-18}}]},
+ {w:"asteroid",t:"Low gravity wobble",x:"Your tools are starting to float away!",f:"Asteroids have very weak gravity, so loose things can drift off.",c:[{n:"Tie down the equipment",e:{pw:-8}},{n:"Hope for the best",e:{o2:-15,fd:-10}}]},
+ {w:"asteroid",t:"Space rock shower",x:"Small rocks are flying past your base.",f:"Asteroids are leftover pieces from the early solar system, and small ones travel around the Sun.",c:[{n:"Cover the habitat",e:{pw:-8}},{n:"Keep working",e:{o2:-20}}]},
+ {w:"venus",t:"Acid cloud",x:"A thick cloud of acid is drifting by.",f:"Venus’s clouds are made of sulfuric acid, so equipment needs special coatings.",c:[{n:"Close the vents",e:{o2:-6,pw:-6}},{n:"Keep vents open",e:{o2:-22}}]},
+ {w:"venus",t:"Hot wind",x:"Heat is rising from far below.",f:"The ground on Venus is about 465 °C, but high in the clouds it is much cooler.",c:[{n:"Float higher",e:{pw:-12}},{n:"Stay low",e:{fd:-20,o2:-8}}]},
+ {w:"ceres",t:"Bright spot trip",x:"You found shiny salty spots on the ground.",f:"NASA’s Dawn spacecraft found bright spots on Ceres made mostly of salty minerals.",c:[{n:"Collect salts for plants",e:{fd:15,pw:-10}},{n:"Skip the trip",e:{}}]},
+ {w:"ceres",t:"Dim sunlight",x:"Ceres is far from the Sun, so solar power is low.",f:"Ceres orbits much farther from the Sun than Earth does, so sunlight is weaker there.",c:[{n:"Open extra solar panels",e:{fd:-8}},{n:"Save power",e:{o2:-10,fd:-10}}]}
+];
+
+  var S=null,app=document.getElementById("app");
+var FL=[["2024-05-08T01:41","X1.0","13663"],["2024-05-08T05:09","X1.0","13664"],["2024-05-08T21:40","X1.0","13664"],["2024-05-09T09:13","X2.2","13664"],["2024-05-09T17:44","X1.1","13664"],["2024-05-10T06:54","X3.9","13664"],["2024-05-11T01:23","X5.8","13664"],["2024-05-11T11:44","X1.5","13664"],["2024-05-12T16:26","X1.0","13664"],["2024-05-14T02:09","X1.7","13664"],["2024-05-14T12:55","X1.2","13664"],["2024-05-08T06:53","M7.1","13664"],["2024-05-08T12:04","M8.6","13664"],["2024-05-08T11:22","M4.1","13663"],["2024-05-08T07:41","M4.5","13663"],["2024-05-08T17:53","M7.9","13664"],["2024-05-08T22:27","M9.8","13664"],["2024-05-09T03:17","M4.0","13664"],["2024-05-09T03:32","M4.5","13664"],["2024-05-10T14:11","M5.9","13664"],["2024-05-11T15:25","M8.8","13664"],["2024-05-12T20:32","M4.8","13664"],["2024-05-13T09:44","M6.6","13664"],["2024-05-13T09:33","M4.9","13664"],["2024-05-14T17:38","M4.4","13682"],["2024-05-14T16:51","X8.7","13664"]];
+var JPM=[17.30,17.44,17.50,17.00,17.34,17.70,17.44,17.53,17.51,17.96,17.65,17.17,18.08,17.08,16.68,16.81,17.95,15.83,17.34,18.54],CUP=[13.58,13.62,13.24,13.80,14.22,14.51,13.23,14.78,14.49,15.44,13.62,13.66,14.27,13.31,13.26,14.04,14.26,13.91,13.31,14.10];
+var DM=[["8 May","X1.0"],["9 May","X2.2"],["10 May","X3.9"],["11 May","X5.8"],["12 May","X1.0"],["13 May","M6.6"],["14 May","X8.7"]];
+function nasaExtra(){var o="",i=(S.sol-1)%20;
+ if(S.sol<=7)o+='<p><b>Real space weather (NASA DONKI), '+DM[S.sol-1][0]+' 2024:</b> the strongest flare that day was '+DM[S.sol-1][1]+'.</p>';
+ if(S.w==="iss")o+='<p><b>Real ISS radiation (NASA RadLab), '+(5+i)+' Dec 2019:</b> '+JPM[i].toFixed(1)+' \u00b5Gy per hour in the JPM module and '+CUP[i].toFixed(1)+' in the Cupola.</p>';
+ return o}
+function fmag(c){var v=parseFloat(c.slice(1));return c[0]==="X"?v*10:v}
+function applyFlare(i){var f=FL[i],e=EV[0],c=f[1],d=Math.min(40,Math.round(14+10*Math.log(fmag(c))/Math.LN10));
+ e.x="NASA DONKI recorded a real "+c+" solar flare: peak "+parseInt(f[0].slice(8,10),10)+" May 2024, "+f[0].slice(11,16)+" UTC, active region "+f[2]+".";
+ e.f="This alert uses a real "+c+" flare recorded by NASA DONKI. DONKI tracks space weather that drives radiation risk for astronauts and spacecraft.";
+ e.c[1].e={sh:-d};if(S)S.fl=i}
+var EVI=["☀️","☄️","🥀","📦","🌪️","🧪","🥶","🛰️","💧","⚡","🔆","🌧️","❄️","🎈","🌠","☁️","🔥","✨","🌑"];
+var SC={
+ moon:{a:"#050914",b:"#1a2447",g:"#9a9aa2",x:'<circle cx="320" cy="40" r="20" fill="#2f7fd0"/><circle cx="314" cy="36" r="8" fill="#4caf6a"/>'},
+ mars:{a:"#6b2f22",b:"#d98a5c",g:"#a8452a",x:'<circle cx="70" cy="40" r="10" fill="#fff3b0"/>'},
+ iss:{a:"#02040c",b:"#0f1d47",g:"",x:'<circle cx="200" cy="260" r="152" fill="#1f5fbf"/><circle cx="160" cy="140" r="22" fill="#4d9a58" opacity=".8"/>'},
+ europa:{a:"#05060f",b:"#1b2547",g:"#cfe7f2",x:'<circle cx="320" cy="45" r="38" fill="#d9a066"/><ellipse cx="320" cy="38" rx="34" ry="4" fill="#a8683a"/><ellipse cx="320" cy="54" rx="36" ry="3" fill="#b9733f"/>'},
+ titan:{a:"#5a300c",b:"#e09a3c",g:"#5a3a1a",x:'<circle cx="320" cy="45" r="22" fill="#e6c98a"/><ellipse cx="320" cy="46" rx="52" ry="9" fill="none" stroke="#f3e3b0" stroke-width="4"/>'},
+ asteroid:{a:"#03040a",b:"#17142b",g:"#6b6760",x:'<circle cx="330" cy="38" r="9" fill="#fff3b0"/>'},
+ venus:{a:"#8a5a12",b:"#f0c060",g:"#f6d98a",x:'<circle cx="70" cy="40" r="12" fill="#fff6cc"/>'},
+ ceres:{a:"#03040a",b:"#1b1f33",g:"#8e8a86",x:'<circle cx="310" cy="45" r="7" fill="#fff3b0"/>'}
+};
+function ups(k){var iss=k==="iss",o="",A=S.anim,i;
+ function lv(x){return Math.min(4,S.u[x]+S.a[x])}
+ function c(x,j){return A===x&&j===lv(x)-1?' class="up"':''}
+ for(i=0;i<lv("pw");i++)o+='<g'+c("pw",i)+'><rect x="'+(34+i*24)+'" y="'+(iss?112:128)+'" width="18" height="9" rx="1" fill="#2f6fd6"/><rect x="'+(42+i*24)+'" y="'+(iss?121:137)+'" width="2" height="6" fill="#8b97b3"/></g>';
+ for(i=0;i<lv("o2");i++)o+='<rect'+c("o2",i)+' x="'+(138-i*12)+'" y="'+(iss?84:106)+'" width="8" height="14" rx="3" fill="#7fb3ff" stroke="#fff"/>';
+ for(i=0;i<lv("fd");i++)o+='<path'+c("fd",i)+' d="M'+(300+i*24)+' 138a10 10 0 0 1 20 0z" fill="#48d98a" stroke="#fff"/>';
+ for(i=0;i<lv("sh");i++)o+=iss?'<ellipse'+c("sh",i)+' cx="200" cy="74" rx="'+(88+i*10)+'" ry="'+(36+i*8)+'" fill="none" stroke="#b48cff" stroke-width="2" stroke-dasharray="4 3"/>':'<path'+c("sh",i)+' d="M'+(142-8*i)+' 120a'+(58+8*i)+' '+(58+8*i)+' 0 0 1 '+(116+16*i)+' 0" fill="none" stroke="#b48cff" stroke-width="2" stroke-dasharray="4 3"/>';
+ if(A){var t={o2:[-90,8],pw:[-130,12],sh:[40,-48],fd:[120,16]}[A],ic={o2:"💨",pw:"⚡",sh:"🛡️",fd:"🌱"}[A],y=iss?92:120;
+  o+='<text class="astro" x="190" y="'+y+'" font-size="22" style="--dx:'+t[0]+'px;--dy:'+t[1]+'px">🧑‍🚀</text><text class="pop" x="'+(190+t[0])+'" y="'+(y+t[1]-10)+'" font-size="20">'+ic+'</text>'}
+ if(!A)o+='<text class="bob" x="214" y="'+(iss?100:122)+'" font-size="18">🧑‍🚀</text>';
+ return o}
+function scene(k,play,live){live=live||play;var c=SC[k],st="";for(var i=0;i<26;i++)st+='<circle'+(live?' class="tw"':'')+' cx="'+(i*97%400)+'" cy="'+(i*53%85+4)+'" r="'+(0.8+i%3*0.5)+'" fill="#fff" style="animation-delay:'+(i%5*0.6)+'s"/>';
+ var hab=k==="iss"?'<rect x="120" y="68" width="160" height="12" rx="4" fill="#dfe6f2"/><rect x="170" y="55" width="60" height="38" rx="6" fill="#c9d3e6"/><rect x="95" y="52" width="14" height="44" fill="#2f6fd6"/><rect x="291" y="52" width="14" height="44" fill="#2f6fd6"/><circle class="blink" cx="200" cy="74" r="7" fill="#7fb3ff"/>':'<path d="M150 120a50 50 0 0 1 100 0z" fill="#e8edf7" stroke="#8b97b3" stroke-width="3"/><circle class="blink" cx="200" cy="100" r="9" fill="#7fb3ff"/><rect x="262" y="104" width="30" height="5" fill="#2f6fd6" transform="rotate(-20 262 104)"/><rect x="108" y="104" width="30" height="5" fill="#2f6fd6" transform="rotate(20 138 104)"/><path d="M200 70v-16" stroke="#8b97b3" stroke-width="3"/><circle cx="200" cy="52" r="4" fill="#e8401c"/>';
+ return '<svg class="sc'+(play?' stick':'')+'" viewBox="0 0 400 150" role="img" aria-label="'+W[k].name+' picture"><defs><linearGradient id="g'+k+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+c.a+'"/><stop offset="1" stop-color="'+c.b+'"/></linearGradient></defs><rect width="400" height="150" fill="url(#g'+k+')"/>'+st+c.x+(!live?'':k==="venus"?'<text class="drift" x="-30" y="58" font-size="26">☁️</text><text class="drift" style="animation-delay:-9s" x="-30" y="90" font-size="20">☁️</text>':'<text class="fly" x="-20" y="48" font-size="16">🚀</text><line class="shoot" x1="40" y1="10" x2="70" y2="22" stroke="#fff" stroke-width="2" stroke-linecap="round"/>')+(k==="iss"?'':'<ellipse cx="200" cy="150" rx="320" ry="32" fill="'+c.g+'"/>')+hab+(play?ups(k):'')+'</svg>'}
+function mood(){var a=(S.m.o2+S.m.pw+S.m.sh+S.m.fd)/4;return '<div class="top"><span>Crew mood</span><span class="mood">'+(a>=70?"😀":a>=50?"🙂":a>=30?"😟":"😰")+'</span></div>'}
+function rf(a,k){var e=document.querySelector("["+a+"=\""+k+"\"]");if(e&&!e.disabled)e.focus({preventScroll:true})}
+function clamp(v){return Math.max(0,Math.min(100,v))}
+function night(){return S.w==="moon"&&S.sol>=4&&S.sol<=5}
+function left(){return 3-(S.spent||0)}
+function chips(e){var s=[];SYS.forEach(function(y){if(e[y.k])s.push(y.i+" "+(e[y.k]>0?"+":"−")+Math.abs(e[y.k]))});return s.join("  ")||"No change"}
+function intro(w){
+ app.innerHTML='<button id="bk">← Back</button>'+scene(w,0,1)+'<h1>'+W[w].icon+' '+W[w].name+'</h1><p>'+W[w].blurb+'</p><div class="card fact"><h2>📖 How to play</h2><ol><li>Each day you get <b>3 working hours</b>.</li><li>Tap <b>+</b> to give an hour to Air, Power, Shield or Food. An astronaut will upgrade your base.</li><li>Use all 3 hours, then start the day.</li><li>Read the NASA fact and keep your crew safe for '+DAYS+' days!</li></ol></div><div class="warn" role="note"><b>Please note:</b> Working hours cannot be replaced even after pressing (−).</div><button class="go" id="gp">🚀 Start mission</button>';
+ document.getElementById("bk").onclick=worlds;document.getElementById("gp").onclick=function(){start(w)}
+}
+function start(w){S={w:w,sol:1,m:{o2:70,pw:70,sh:70,fd:70},a:{o2:0,pw:0,sh:0,fd:0},u:{o2:0,pw:0,sh:0,fd:0},ev:null,note:"",seen:[]};draw()}
+function meters(){return SYS.map(function(s){var v=Math.round(S.m[s.k]);return '<div class="meter'+(v<25?' low':'')+'"><div class="row"><span>'+s.i+' '+s.n+'</span><b>'+v+'%'+(v<25?' – low!':'')+'</b></div><div class="bar"><div class="fill" style="width:'+v+'%;background:'+COL[s.k]+'"></div></div></div>'}).join("")}
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+var ST=load("hz_set")||{sound:"on",big:"normal",theme:"auto"};
+function applySet(){var r=document.documentElement;if(ST.theme==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",ST.theme);document.body.style.fontSize=ST.big==="large"?"1.25rem":""}
+function save(){if(S){var a=S.anim;S.anim=null;store("hz_save",S);S.anim=a}}
+function beep(f){if(ST.sound!=="on")return;try{var c=beep.c||(beep.c=new(window.AudioContext||window.webkitAudioContext)()),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=0.05;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+0.12)}catch(e){}}
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("button"))beep(520)});
+function find(t){return EV.filter(function(x){return x.t===t})[0]||null}
+function cont(){var s=load("hz_save");if(!s||!W[s.w])return;S=s;if(S.fl!=null)applyFlare(S.fl);if(S.ev)S.ev=find(S.ev.t);if(S.pending){var p=S.pending;p.e=find(p.e&&p.e.t);if(!p.e)S.pending=null}draw()}
+function home(){
+ var sv=load("hz_save"),ok=sv&&W[sv.w],info=ok?W[sv.w].name+", day "+sv.sol:"No saved game yet";
+ app.innerHTML=scene("moon",0,1)+'<div style="text-align:center"><p class="big float">🚀</p><h1>Junior Astronaut Mission Trainer</h1><p class="mute">Run a space base. Learn real NASA facts.</p></div><div class="menu"><button class="go" id="ng"><span class="ic">▶️</span><b>New game</b></button><button id="ct"'+(ok?'':' disabled')+'><span class="ic">⏯️</span><div><b>Continue</b><br><span>'+info+'</span></div></button><button id="st"><span class="ic">⚙️</span><b>Settings</b></button><button id="nd"><span class="ic">📡</span><b>NASA data</b></button><button id="ex"><span class="ic">🚪</span><b>Exit</b></button></div><p class="mute" style="text-align:center">Made by Team Horzonyx</p>';
+ document.getElementById("ng").onclick=worlds;document.getElementById("ct").onclick=cont;document.getElementById("st").onclick=settings;document.getElementById("nd").onclick=dataScr;document.getElementById("ex").onclick=bye
+}
+function seg(k,o){return '<div class="seg">'+o.map(function(x){return '<button data-s="'+k+'" data-v="'+x[0]+'" aria-pressed="'+(ST[k]===x[0])+'">'+x[1]+'</button>'}).join("")+'</div>'}
+function settings(){
+ app.innerHTML='<button id="bk">← Menu</button><h1>⚙️ Settings</h1><div class="card"><h2>🔊 Sound</h2>'+seg("sound",[["on","On"],["off","Off"]])+'</div><div class="card"><h2>🔤 Text size</h2>'+seg("big",[["normal","Normal"],["large","Large"]])+'</div><div class="card"><h2>🎨 Colors</h2>'+seg("theme",[["auto","Auto"],["light","Light"],["dark","Dark"]])+'</div><div class="card"><h2>🗑️ Saved game</h2><p class="mute">Your game saves by itself on this device.</p><button id="rs">Delete saved game</button></div>';
+ document.getElementById("bk").onclick=home;
+ app.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){ST[b.dataset.s]=b.dataset.v;store("hz_set",ST);applySet();settings()}});
+ document.getElementById("rs").onclick=function(){if(this.dataset.c){store("hz_save",null);S=null;settings()}else{this.dataset.c=1;this.textContent="Tap again to delete"}}
+                      }
+
+  function dataScr(){
+ var X=FL.filter(function(f){return f[1][0]==="X"}).sort(function(a,b){return a[0]<b[0]?-1:1});
+ var rows=X.map(function(f){var v=parseFloat(f[1].slice(1));return '<div class="res"><i>'+parseInt(f[0].slice(8,10),10)+' May '+f[0].slice(11,16)+'</i><div class="bar"><div class="fill" style="width:'+Math.round(v/8.7*100)+'%;background:var(--sh)"></div></div><span>'+f[1]+'</span></div>'}).join("");
+ var avg=function(a){return(a.reduce(function(x,y){return x+y},0)/a.length).toFixed(1)};
+ function mb(a,col){return '<div class="mb">'+a.map(function(v){return '<i style="height:'+Math.round((v-10)/10*100)+'%;background:'+col+'"></i>'}).join("")+'</div>'}
+ function ul(a){return '<ul class="f">'+a.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>'}
+ app.innerHTML='<button id="bk">\u2190 Menu</button><h1>📡 NASA data</h1><p>Real NASA data used in this game, explained in simple words. They are saved copies, not a live feed.</p>'+
+ '<div class="card"><h2>\u2600\uFE0F How big is a solar flare?</h2><p>A solar flare is a burst of energy from the Sun. Flares are sorted by letters: A, B, C, M and X. Each letter is 10 times stronger than the one before, so X is the strongest. The number after the letter is a finer step, like X8.7.</p></div>'+
+ '<div class="card fact"><h2>\u2600\uFE0F Solar flares \u00b7 NASA DONKI</h2><p>DONKI is NASA\u2019s database of space weather. In the game, a flare alert picks one of 26 real flares from 8 to 14 May 2024 (12 X-class and 14 strong M-class). Each day report also shows the strongest flare of that real day. These are the 12 X-class flares, with the strongest at the bottom:</p>'+rows+'<p class="mute">Bar length compares flare strength. The strongest was X8.7 on 14 May at 16:51 UTC.</p></div>'+
+ '<div class="card fact"><h2>🛰\uFE0F ISS radiation \u00b7 NASA OSDR RadLab</h2><p>Radiation is energy that can harm living things. Instruments inside the International Space Station measure how much an object soaks up, in \u00b5Gy (microgray) per hour. These are daily readings for 5\u201324 December 2019, from two places inside the ISS.</p>'+
+ '<p><b>JPM module</b> (average '+avg(JPM)+', range 15.8\u201318.5)</p>'+mb(JPM,'var(--sh)')+'<p><b>Cupola</b> (average '+avg(CUP)+', range 13.2\u201315.4)</p>'+mb(CUP,'var(--o2)')+'<p class="mute">Every day the JPM module got more radiation than the Cupola. So where you stand in a base matters. Instruments: REM-JPM1FD4-pre and REM-CUPSSC17-pre.</p></div>'+
+ '<div class="card"><h2>🔴 Mars \u00b7 NASA Science</h2>'+ul(["Mars is about half the size of Earth. Its radius is 3,390 km.","A Mars day (sol) is 24.6 hours. A Mars year is 687 Earth days.","It can reach 20 \u00b0C or fall to about \u2212153 \u00b0C.","The air is thin: mostly carbon dioxide, nitrogen and argon.","Dust storms can cover much of the planet and take months to settle.","Today there is ice near the poles and salty water that flows on some slopes in some seasons."])+'</div>'+
+ '<div class="card"><h2>🌙 Moon \u00b7 NASA Science</h2>'+ul(["It is 384,400 km from Earth on average.","It spins once every 27.32 Earth days, the same as its orbit.","Gravity is 0.17 of Earth\u2019s.","Mean surface temperature: 107 \u00b0C by day, \u2212153 \u00b0C at night.","It has no atmosphere.","NASA found water ice, mostly in dark craters at the poles."])+'</div>'+
+ '<div class="card"><h2>🔎 Explore more NASA resources</h2>'+ul(['<a href="https://api.nasa.gov" target="_blank" rel="noopener">NASA Open APIs</a>: free tools that give programs NASA data, like the Astronomy Picture of the Day, Mars rover photos and space weather.','<a href="https://osdr.nasa.gov" target="_blank" rel="noopener">NASA OSDR</a>: a library of space biology and astronaut health studies, such as bones, muscles and sleep.','<a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener">Mars Trek</a>: interactive maps of Mars made from NASA missions, including Curiosity and Perseverance.'])+'</div>'+
+ '<div class="card"><h2>How the game uses it</h2><p>Real flare classes and dates appear in solar flare alerts and day reports. Real RadLab numbers appear in Space station day reports. Moon and Mars facts come from NASA pages. Meters and damage numbers are game design, not NASA measurements. Facts for the other worlds are general space facts.</p></div>'+
+ '<div class="card"><h2>Sources</h2><p class="mute"><a href="https://ccmc.gsfc.nasa.gov/DONKI/" target="_blank" rel="noopener">NASA DONKI</a> (flare table, 8\u201314 May 2024)<br><a href="https://visualization.osdr.nasa.gov/radlab/" target="_blank" rel="noopener">NASA OSDR RadLab</a> (ISS daily dose rates, Dec 2019)<br><a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noopener">NASA Science: Mars Facts</a><br><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noopener">NASA Science: Moon Facts</a><br>Learn more about food in space: Canadian Space Agency toolkit (<a href="https://asc-csa.gc.ca" target="_blank" rel="noopener">asc-csa.gc.ca</a>). Not NASA.<br>Retrieved November 2026.</p></div>';
+ document.getElementById("bk").onclick=home
+}
+function bye(){
+ app.innerHTML='<p class="big" style="text-align:center">👋</p><h1 style="text-align:center">Thanks for playing!</h1><div class="card"><p>Your game is saved. You can close this tab now, or come back any time to continue.</p><p class="mute">Made by Team Horzonyx for the NASA Space Apps Challenge.</p></div><button class="go" id="bk">Back to menu</button>';
+ document.getElementById("bk").onclick=home
+}
+function worlds(){
+ app.innerHTML='<button id="bk">← Menu</button><h1>New game</h1><p>Keep your astronauts safe on 8 different space bases for '+DAYS+' days.</p>'+
+ '<div class="card"><h2>How to play</h2><ol><li>Each day you have <b>3 worker hours</b>.</li><li>Tap <b>+</b> to give hours. An astronaut will come out and upgrade your base!</li><li>Every system slowly drops each day. Do not let any reach 0%!</li></ol></div>'+
+ '<h2>Pick your mission</h2>'+(load("hz_save")?'<p class="mute">Starting a new game replaces your saved game.</p>':'')+Object.keys(W).map(function(k){return '<button class="world" data-w="'+k+'">'+scene(k)+'<b>'+W[k].icon+' '+W[k].name+'</b><span class="mute">'+W[k].blurb+'</span></button>'}).join("")+
+ '<div class="card"><h2>About this project</h2><p class="mute">Real space engineers must balance air, power, shields and food. This game lets you feel those choices. Every day shows a real fact from NASA science. Built by <b>Team Horzonyx</b>.</p></div>';
+ app.querySelectorAll("[data-w]").forEach(function(b){b.onclick=function(){intro(b.dataset.w)}});document.getElementById("bk").onclick=home
+}
+function draw(){
+ if(!S){home();return}
+ save();if(S.pending){showFact();return}if(S.ev){drawEvent();return}
+ var w=W[S.w],l=left(),warn="";
+ if(night())warn+='<div class="warn">🌑 Moon night! Power drops faster today.</div>';
+ if(S.m.pw<25)warn+='<div class="warn">⚡ Power is low, so Air and Food grow only half as much.</div>';
+ if(S.m.sh<25)warn+='<div class="warn">🛡️ Shield is low. Radiation is getting dangerous!</div>';
+ app.innerHTML='<div class="top"><button id="mn">☰ Menu</button><span>'+w.icon+' <b>'+w.name+'</b></span></div><div class="bar" role="img" aria-label="Mission progress"><div class="fill" style="width:'+Math.round((S.sol-1)/DAYS*100)+'%;background:var(--acc)"></div></div><p class="mute">Day '+S.sol+' of '+DAYS+'</p>'+
+ scene(S.w,1)+'<p role="status" class="st'+(S.msg?' shake':'')+'">'+(S.anim?'🧑‍🚀 Upgrading '+SYS.filter(function(s){return s.k===S.anim})[0].n+'!':S.msg?'🧑‍🚀 Work cancelled. That hour is already used and does not come back.':'&nbsp;')+'</p>'+(S.note?'<p class="mute">'+S.note+'</p>':'')+'<div class="card">'+mood()+meters()+'</div>'+warn+
+ '<div class="card"><h2>Give worker hours: '+"●".repeat(l)+"○".repeat(3-l)+' ('+l+' left)</h2><p class="mute">Choose carefully. The − button doesn’t give hours back.</p>'+
+ SYS.map(function(s){return '<div class="alloc"><div class="t">'+s.i+' '+s.n+'<span>'+s.tip+(S.a[s.k]?' · +'+S.a[s.k]*25+'% at day end':'')+'</span></div><button class="sq" aria-label="Less '+s.n+'" data-m="'+s.k+'"'+(S.a[s.k]<1?' disabled':'')+'>−</button><div class="n">'+S.a[s.k]+'</div><button class="sq" aria-label="More '+s.n+'" data-k="'+s.k+'" data-d="1"'+(l<1?' disabled':'')+'>+</button></div>'}).join("")+
+ '</div><button class="go" id="run"'+(l?' disabled':'')+'>'+(l?'Use all 3 hours to start':'Start day '+S.sol)+'</button>';
+ S.anim=null;S.msg=null;app.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){var k=b.dataset.m;if(S.a[k]>0)S.a[k]--;S.msg=1;var y=window.scrollY;draw();window.scrollTo(0,y);rf("data-m",k)}});app.querySelectorAll("[data-k]").forEach(function(b){b.onclick=function(){var k=b.dataset.k,d=+b.dataset.d;S.a[k]+=1;S.spent=(S.spent||0)+1;S.anim=k;var y=window.scrollY;draw();window.scrollTo(0,y);rf("data-k",k)}});
+ document.getElementById("run").onclick=run;document.getElementById("mn").onclick=home
+}
+function fails(){var r={o2:["The air ran out","Air is the first thing mission planners protect."],pw:["The power ran out","Pumps, heaters and air cleaners all need electricity."],sh:["Radiation got too strong","Space has no thick air like Earth. Crews need shields and shelters."],fd:["The food ran out","Long missions need plants or stored food. Growing food also uses power and time."]};
+ for(var k in r){if(S.m[k]<=0)return r[k]}return null}
+function run(){
+ var d=W[S.w].d,f=1+S.sol*0.05,eff=S.m.pw<25?0.5:1;
+ SYS.forEach(function(s){var k=s.k,g=S.a[k]*25*((k==="o2"||k==="fd")?eff:1),x=Math.round(d[k]*f)+(night()&&k==="pw"?12:0);S.m[k]=clamp(S.m[k]+g-x);S.u[k]+=S.a[k];S.a[k]=0});S.spent=0;
+ var fl=fails();if(fl)return end(false,fl);
+ S.note="";
+ var pool=EV.filter(function(e){return e.w==="both"||e.w===S.w});
+ S.ev=pool[Math.floor(Math.random()*pool.length)];if(S.ev===EV[0])applyFlare(Math.floor(Math.random()*FL.length));
+ draw()
+}
+function drawEvent(){save();
+ var e=S.ev;
+ app.innerHTML=scene(S.w,1)+'<div class="top"><h2>Day '+S.sol+' alert</h2></div><div class="card">'+mood()+meters()+'</div><div class="card"><p class="ev">'+EVI[EV.indexOf(e)]+'</p><h2>'+e.t+'</h2><p>'+e.x+'</p>'+
+ e.c.map(function(c,i){return '<button class="opt" data-i="'+i+'"><b>'+c.n+'</b><span>'+chips(c.e)+'</span></button>'}).join("")+'</div>';
+ app.querySelectorAll("[data-i]").forEach(function(b){b.onclick=function(){choose(+b.dataset.i)}})
+}
+function choose(i){
+ var c=S.ev.c[i],e=S.ev,w=W[S.w],fa=w.facts[(S.sol-1)%w.facts.length];
+ for(var k in c.e)S.m[k]=clamp(S.m[k]+c.e[k]);
+ S.seen.push(e.f);S.seen.push(fa);
+ var fl=fails();if(fl)return end(false,fl);
+ S.ev=null;S.pending={e:e,c:c,fa:fa};showFact()
+}
+function showFact(){save();
+ var p=S.pending;
+ app.innerHTML='<h2>Day '+S.sol+' report</h2><div class="card">'+meters()+'</div><div class="card fact"><p class="ev">'+EVI[EV.indexOf(p.e)]+'</p><h2>'+(S.w==="moon"||S.w==="mars"?"🔭 NASA fact":"🔭 Space fact")+'</h2><p><b>'+p.e.t+'</b> '+p.e.f+'</p><p>'+p.fa+'</p>'+nasaExtra()+'</div><button class="go" id="nx">'+(S.sol>=DAYS?'Finish mission':'Go to day '+(S.sol+1))+'</button>';
+ document.getElementById("nx").onclick=function(){S.note="You chose: "+p.c.n.toLowerCase()+".";S.pending=null;S.sol++;if(S.sol>DAYS)return end(true);draw()}
+}
+function confetti(){var d=document.createElement("div"),e=["⭐","🎉","🚀","✨"],h="",i;d.className="conf";d.setAttribute("aria-hidden","true");for(i=0;i<24;i++)h+='<span style="left:'+(i*4.3%100)+'%;animation-delay:'+(i%8*0.15)+'s">'+e[i%4]+'</span>';d.innerHTML=h;document.body.appendChild(d);setTimeout(function(){d.remove()},4500)}
+function end(win,fl){store("hz_save",null);if(win)setTimeout(confetti,50);
+ var avg=Math.round((S.m.o2+S.m.pw+S.m.sh+S.m.fd)/4),tot=0,w=W[S.w];
+ for(var k in S.u)tot+=S.u[k];tot=tot||1;
+ var rank=!win?"Cadet in training":avg>=70?"Mission Commander":avg>=45?"Flight Engineer":"Rookie Astronaut";
+ var rep=SYS.map(function(s){var p=Math.round(S.u[s.k]/tot*100);return '<div class="res"><i>'+s.i+' '+s.n+'</i><div class="bar"><div class="fill" style="width:'+p+'%;background:'+COL[s.k]+'"></div></div><span>'+p+'%</span></div>'}).join("");
+ var uniq=S.seen.filter(function(v,i,a){return a.indexOf(v)===i});
+ app.innerHTML='<p class="big">'+(win?"🏆":"🛰️")+'</p><h1>'+(win?"Mission success!":"Mission over on day "+S.sol)+'</h1>'+
+ '<div class="card"><p class="ev">'+(win?(avg>=70?"⭐⭐⭐":avg>=45?"⭐⭐":"⭐"):"☆☆☆")+'</p><h2>Your rank: '+rank+'</h2>'+(win?'<p>Your crew stayed safe for '+DAYS+' days at the '+w.name.toLowerCase()+'. Average system level: '+avg+'%.</p>':'<p><b>'+fl[0]+'.</b> '+fl[1]+' Try again and share your hours more evenly.</p>')+'</div>'+
+ '<div class="card"><h2>Where your hours went</h2>'+rep+'<p class="mute">Helping one system means less help for the others. Real engineers make these trade-offs too.</p></div>'+
+ (uniq.length?'<div class="card fact"><h2>Facts you learned</h2><ul class="f">'+uniq.map(function(f){return '<li>'+f+'</li>'}).join("")+'</ul></div>':'')+
+ '<button class="go" id="again">Play again</button><br><br><button class="opt" id="menu"><b>Choose another world</b></button>';
+ document.getElementById("again").onclick=function(){start(S.w)};
+ document.getElementById("menu").onclick=function(){S=null;home()}
+}
+applySet();home();
+</script>
+</body>
+</html>
